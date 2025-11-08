@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link, replace } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   useLoginMutation,
   useGetUserProfileQuery,
 } from "../Redux/UserApiSlice";
 import { useLogoutMutation } from "../Redux/UserApiSlice";
+import { contentApiSlice, useGetContentsQuery } from "../Redux/contentApiSlice";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigator = useNavigate();
   const location = useLocation();
-
+  const dispatch = useDispatch();
   const redirect = new URLSearchParams(location.search).get("redirect") || "";
   console.log(redirect);
 
@@ -20,7 +22,6 @@ const LoginScreen = () => {
   // Auto-fetch user profile
   const { data: profileData, refetch: refetchProfile } =
     useGetUserProfileQuery();
-
   // Submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -30,7 +31,9 @@ const LoginScreen = () => {
       // Login
       await loginUser({ email, password }).unwrap();
       refetchProfile();
-
+      dispatch(
+    contentApiSlice.util.invalidateTags(["Like"])
+    );
     } catch (err) {
       console.error("Login failed:", err);
       setError(err?.data?.message || "Login failed");
@@ -42,6 +45,7 @@ const LoginScreen = () => {
   useEffect(() => {
     if (profileData) {
        navigator(`/${redirect}`);
+      //  window.location.reload();
     }
   }, [profileData]);
 

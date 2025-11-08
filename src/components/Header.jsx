@@ -128,7 +128,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useGetUserProfileQuery, useLogoutMutation, userApiSlice } from "../Redux/UserApiSlice";
-
+import { contentApiSlice } from "../Redux/contentApiSlice";
 export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
