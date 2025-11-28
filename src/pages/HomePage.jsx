@@ -31,10 +31,16 @@ const Home = () => {
     }
   }, [data, page]);
 
-  // ✅ Infinite scroll handler
+ // ✅ Manual load more
+  const loadMore = () => {
+    if (!isFetching && hasMore) setPage((p) => p + 1);
+  };
+
+  // ✅ Infinite scroll
   const handleScroll = useCallback(() => {
     const atBottom =
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 2;
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 50;
 
     if (atBottom && !isFetching && hasMore) {
       setPage((prev) => prev + 1);
@@ -46,72 +52,110 @@ const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-neutral-900 dark:to-neutral-950 p-4">
+return (
+  <div className="min-h-screen bg-base-100 text-base-content transition-all duration-300">
 
-      <div className="max-w-2xl mx-auto space-y-5">
+    <div className="max-w-3xl mx-auto px-4 py-10 space-y-10">
 
+      {/* PAGE HEADER */}
+      <div className="mb-2">
+        <h1 className="text-3xl font-extrabold">
+          Discover Insights
+        </h1>
+        <p className="opacity-70 text-sm mt-1">
+          Curated wisdom • Mental frameworks • Life philosophy
+        </p>
+      </div>
+
+      {/* CONTENT LIST */}
+      <div className="space-y-8">
         {contents.map((content) => (
           <div
             key={content._id}
             className="
-              bg-white dark:bg-neutral-800 
-              p-5 rounded-2xl border border-gray-200 dark:border-neutral-700
-              shadow-sm hover:shadow-md
-              transition-all duration-200
+              border-b border-base-300
+              pb-6 group transition-all
             "
           >
-            {/* Category Pill */}
-            <span
-              className="
-                px-3 py-1 text-xs rounded-full 
-                bg-blue-100 text-blue-700
-                dark:bg-blue-900 dark:text-blue-200
-              "
-            >
+            {/* Category */}
+            <span className="
+              text-xs font-semibold uppercase tracking-wide
+              text-primary
+            ">
               {content.category}
             </span>
 
             {/* Title */}
             <Link to={`/content/${content._id}`}>
-              <h2 className="text-xl font-semibold mt-3 leading-tight hover:underline">
+              <h2 className="
+                mt-1 text-2xl font-bold
+                group-hover:text-primary
+                transition-colors cursor-pointer
+              ">
                 {content.title}
               </h2>
             </Link>
 
-            {/* Words */}
-            <p className="text-gray-700 dark:text-gray-300 mt-3 text-sm leading-relaxed">
+            {/* Summary */}
+            <p className="
+              mt-2 opacity-80 text-[15px]
+              leading-relaxed line-clamp-2
+            ">
               {content.words}
             </p>
 
-            {/* Bottom bar */}
-            <div className="flex justify-between items-center mt-4">
+            {/* Bottom Bar */}
+            <div className="flex items-center justify-between mt-4">
+
+              {/* Date */}
               <span className="text-xs opacity-60">
                 {new Date(content.createdAt).toLocaleDateString()}
               </span>
 
+              {/* Like Button */}
               <LikeButton contentId={content._id} size="sm" />
-              {content._id}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Loading Spinner */}
+      {/* LOADING */}
       {isFetching && (
-        <div className="flex justify-center my-6">
-          <span className="loading loading-spinner loading-lg"></span>
+        <div className="flex justify-center">
+          <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
       )}
 
-      {/* No more */}
-      {!hasMore && (
-        <div className="text-center text-gray-500 my-4">
-          No more content to load.
+      {/* LOAD MORE */}
+      {hasMore && !isFetching && (
+        <div className="flex justify-center">
+          <button
+            onClick={loadMore}
+            className="
+              px-5 py-2.5 
+              text-sm font-semibold 
+              bg-primary text-primary-content
+              rounded-full shadow-sm
+              hover:scale-105 active:scale-95
+              transition-all
+            "
+          >
+            Load More
+          </button>
         </div>
       )}
+
+      {/* END MESSAGE */}
+      {!hasMore && (
+        <p className="text-center opacity-50 text-sm">
+          • No more content •
+        </p>
+      )}
     </div>
-  );
+  </div>
+);
+
+
 };
 
 export default Home;

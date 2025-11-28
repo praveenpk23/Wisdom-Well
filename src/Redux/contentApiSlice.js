@@ -31,14 +31,24 @@ export const contentApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Content"],
     }),
 
-    // ✅ 4. Get contents by Audience "for"
-    getContentsByFor: builder.query({
-      query: ({ forValue, page = 1, limit = 10 }) => ({
-        url: `${CONTENT_URL}/for/${forValue}?page=${page}&limit=${limit}`,
-        method: "GET",
-      }),
-      providesTags: ["Content"],
-    }),
+   // ✅ 4. Get contents by Audience "for"
+getContentsByFor: builder.query({
+  query: ({ forValue, page = 1, limit = 10 }) => ({
+    url: `${CONTENT_URL}/for/${forValue}?page=${page}&limit=${limit}`,
+    method: "GET",
+  }),
+  providesTags: ["Content"],
+}),
+
+// ✅ Get contents by Emotion
+getContentsByEmotion: builder.query({
+  query: ({ emotion, page = 1, limit = 10 }) => ({
+    url: `${CONTENT_URL}/emotion/${emotion}?page=${page}&limit=${limit}`,
+    method: "GET",
+  }),
+  providesTags: ["Content"],
+}),
+
 
     // ✅ 5. Like / Unlike toggle
     toggleLike: builder.mutation({
@@ -58,6 +68,41 @@ export const contentApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Like"],
     }),
+
+// Admin: Create content
+    createContent: builder.mutation({
+      query: (newContent) => ({
+        url: `${CONTENT_URL}`,
+        method: "POST",
+        body: newContent,
+        credentials: "include",
+      }),
+      invalidatesTags: ["Content"],
+    }),
+
+    // 🟢 Admin: Update content
+    updateContent: builder.mutation({
+      query: ({ id, updatedContent }) => ({
+        url: `${CONTENT_URL}/${id}`,
+        method: "PUT",
+        body: updatedContent,
+        credentials: "include",
+      }),
+      invalidatesTags: ["Content"],
+    }),
+
+    // 🟢 Admin: Delete content
+    deleteContent: builder.mutation({
+      query: (id) => ({
+        url: `${CONTENT_URL}/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["Content"],
+    }),
+
+
+
   }),
 });
 
@@ -68,4 +113,10 @@ export const {
   useGetContentsByForQuery,
   useToggleLikeMutation,
   useGetLikesCountQuery,
+  useGetContentsByEmotionQuery,
+  // Admin CRUD hooks
+  useCreateContentMutation,
+  useUpdateContentMutation,
+  useDeleteContentMutation,
+  
 } = contentApiSlice;

@@ -1,141 +1,367 @@
-// import { useState } from "react";
 
-// export default function WisdomHeader() {
-//   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+// import { useState } from "react";
+// import { Link, NavLink, useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+// import {
+//   useGetUserProfileQuery,
+//   useLogoutMutation,
+//   userApiSlice,
+// } from "../Redux/UserApiSlice";
+
+// const categoriesList = [
+//   "Philosophy",
+//   "Wisdom",
+//   "Mental Health",
+//   "Self-Improvement",
+//   "Productivity",
+//   "Stoicism",
+//   "Life",
+// ];
+
+// const forPeopleList = [
+//   "Entrepreneurs",
+//   "Students",
+//   "Thinkers",
+//   "Leaders",
+//   "Fitness People",
+// ];
+
+// export default function Header() {
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+
+//   const { data } = useGetUserProfileQuery();
+//   const [logout] = useLogoutMutation();
+//   const [selectedEmotion, setSelectedEmotion] = useState(null);
+
+//   const [theme, setTheme] = useState("dark");
 
 //   const toggleTheme = () => {
 //     const newTheme = theme === "light" ? "dark" : "light";
-//     localStorage.setItem("theme", newTheme);
 //     setTheme(newTheme);
 //     document.documentElement.setAttribute("data-theme", newTheme);
 //   };
 
-//   return (
-//     <header className="sticky top-0 z-50 border-b bg-base-100/80 backdrop-blur-xl">
-//       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+//   const logoutHandler = async () => {
+//     try {
+//       await logout();
+//       dispatch(userApiSlice.util.resetApiState());
+//       navigate("/login");
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+// const emotionList = [
+//   { emoji: "😊", name: "happy" },
+//   { emoji: "😢", name: "sad" },
+//   { emoji: "😡", name: "angry" },
+//   { emoji: "😌", name: "calm" },
+//   { emoji: "🔥", name: "motivated" },
+//   { emoji: "💔", name: "heartbroken" },
+//   { emoji: "🤔", name: "thoughtful" },
+// ];
 
-//         {/* Logo */}
-//         <div className="flex items-center gap-1">
-//           <span className="text-3xl font-bold text-primary">Wisdom</span>
-//           <span className="text-3xl font-light">Well</span>
+
+//   return (
+//   <header className="sticky top-0 z-50 bg-base-100/80 backdrop-blur-xl border-b border-base-300 dark:border-neutral-700 shadow-sm">
+//     <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+
+//       {/* ✅ LOGO */}
+//       <Link to="/" className="flex items-center gap-1 select-none">
+//         <span className="text-3xl font-bold text-primary">Wisdom</span>
+//         <span className="text-3xl font-light">Well</span>
+//       </Link>
+// {/* EMOTION DROPDOWN */}
+// <div className="dropdown dropdown-hover">
+//   <label tabIndex={0} className="hover:text-primary cursor-pointer">
+//     Emotion
+//   </label>
+
+//   <ul
+//     tabIndex={0}
+//     className="dropdown-content menu p-3 shadow bg-base-100 rounded-xl w-40 border grid grid-cols-4 gap-2 text-xl"
+//   >
+//     {emotionList.map((item) => (
+//       <li key={item.name} className="text-center">
+//         <button
+//           onClick={() => {
+//             setSelectedEmotion(item);
+//             navigate(`/emotion/${item.name}`);
+//           }}
+//           className="hover:scale-110 transition text-2xl"
+//         >
+//           {item.emoji}
+//         </button>
+//       </li>
+//     ))}
+//   </ul>
+// </div>
+
+//       {/* ✅ DESKTOP NAVBAR */}
+//       <nav className="hidden lg:flex items-center gap-6 text-[16px] font-medium">
+
+//         {/* ✅ ACTIVE LINK */}
+//         <NavLink
+//           to="/"
+//           className={({ isActive }) =>
+//             `transition hover:text-primary ${
+//               isActive ? "text-primary font-semibold underline underline-offset-4" : ""
+//             }`
+//           }
+//         >
+//           Home
+//         </NavLink>
+
+//         {/* ✅ CATEGORIES DROPDOWN */}
+//         <div className="dropdown dropdown-hover">
+//           <label tabIndex={0} className="hover:text-primary cursor-pointer">
+//             Categories
+//           </label>
+//           <ul
+//             tabIndex={0}
+//             className="dropdown-content menu p-3 shadow bg-base-100 rounded-xl w-52 border"
+//           >
+//             {categoriesList.map((cat) => (
+//               <li key={cat}>
+//                 <Link to={`/category/${cat}`} className="hover:text-primary">
+//                   {cat}
+//                 </Link>
+//               </li>
+//             ))}
+//           </ul>
 //         </div>
 
-//         {/* Desktop Menu */}
-//         <nav className="hidden lg:flex">
-//           <ul className="flex items-center gap-8 text-[17px] font-medium">
-//             <li><a className="hover:text-primary transition">Home</a></li>
-//             <li><a className="hover:text-primary transition">Articles</a></li>
-//             <li><a className="hover:text-primary transition">Books</a></li>
-//             <li><a className="hover:text-primary transition">About</a></li>
-//           </ul>
-//         </nav>
-
-//         {/* Right side buttons */}
-//         <div className="flex items-center gap-3">
-
-//           {/* Theme Toggle */}
-//           {/* <button
-//             onClick={toggleTheme}
-//             className="btn btn-ghost btn-circle"
+//         {/* ✅ FOR PEOPLE DROPDOWN */}
+//         <div className="dropdown dropdown-hover">
+//           <label tabIndex={0} className="hover:text-primary cursor-pointer">
+//             For
+//           </label>
+//           <ul
+//             tabIndex={0}
+//             className="dropdown-content menu p-3 shadow bg-base-100 rounded-xl w-52 border"
 //           >
-//             {theme === "light" ? (
-//               <svg xmlns="http://www.w3.org/2000/svg"
-//                 className="h-6 w-6"
-//                 viewBox="0 0 24 24" fill="currentColor">
-//                 <path d="M5.64 17l-.71.71a1 1 0 101.41 1.41l.71-.7A1 1 0 105.64 17zM12 6a1 1 0 100-2 1 1 0 000 2zm6.36 1.64l.71-.71a1 1 0 10-1.41-1.41l-.71.71a1 1 0 101.41 1.41zM18 12a1 1 0 102 0 1 1 0 00-2 0z" />
-//               </svg>
-//             ) : (
-//               <svg xmlns="http://www.w3.org/2000/svg"
-//                 className="h-6 w-6"
-//                 viewBox="0 0 24 24" fill="currentColor">
-//                 <path d="M21.64 13a1 1 0 00-1.05-.14A8 8 0 1111.1 3.41a1 1 0 00-.14-1A1 1 0 009.68 2 10 10 0 1022 14.32z" />
-//               </svg>
-//             )}
-//           </button> */}
+//             {forPeopleList.map((fp) => (
+//               <li key={fp}>
+//                 <Link to={`/for/${fp}`} className="hover:text-primary">
+//                   {fp}
+//                 </Link>
+//               </li>
+//             ))}
+//           </ul>
+//         </div>
 
+//         {/* ✅ PROFILE LINK */}
+//         {data && (
+//           <NavLink
+//             to="/profile"
+//             className={({ isActive }) =>
+//               `transition hover:text-primary ${
+//                 isActive ? "text-primary font-semibold underline underline-offset-4" : ""
+//               }`
+//             }
+//           >
+//             Profile
+//           </NavLink>
+//         )}
+//       </nav>
+// {selectedEmotion && (
+//   <span className="text-2xl mr-2" title={selectedEmotion.name}>
+//     {selectedEmotion.emoji}
+//   </span>
+// )}
+
+//       {/* ✅ SEARCH BAR (DUMMY) */}
+//       <div className="hidden lg:block flex-grow max-w-xs mx-4">
+//         <input
+//           type="text"
+//           placeholder="Search..."
+//           className="input input-bordered input-sm w-full"
+//           disabled
+//         />
+//       </div>
+
+//       {/* ✅ RIGHT ACTIONS */}
+//       <div className="flex items-center gap-3">
+
+//         {/* THEME BUTTON */}
 //         <button
-//             onClick={toggleTheme}
-//             className="btn btn-circle btn-ghost border border-base-content/20 hover:border-base-content/40 transition"
+//           onClick={toggleTheme}
+//           className="btn btn-circle btn-ghost border border-base-content/20 hover:border-base-content/40 transition"
+//         >
+//           {theme === "light" ? (
+//             // Moon Icon
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               className="h-5 w-5"
+//               fill="none"
+//               viewBox="0 0 24 24"
+//               stroke="currentColor"
+//               strokeWidth="2"
 //             >
-//             {theme === "light" ? (
-//                 // Moon Icon (for dark mode)
-//                 <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 className="h-5 w-5"
-//                 fill="none"
-//                 viewBox="0 0 24 24"
-//                 stroke="currentColor"
-//                 strokeWidth="2"
-//                 >
-//                 <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     d="M12 3c.132 0 .263 0 .393.01a9 9 0 108.596 8.596A7 7 0 0112 3z"
-//                 />
-//                 </svg>
-//             ) : (
-//                 // Sun Icon (for light mode)
-//                 <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 className="h-5 w-5"
-//                 fill="none"
-//                 viewBox="0 0 24 24"
-//                 stroke="currentColor"
-//                 strokeWidth="2"
-//                 >
-//                 <circle cx="12" cy="12" r="4" />
-//                 <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     d="M12 2v2m6.364 1.636l-1.414 1.414M22 12h-2m-1.636 6.364l-1.414-1.414M12 22v-2M4.636 18.364l1.414-1.414M2 12h2m1.636-6.364l1.414 1.414"
-//                 />
-//                 </svg>
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 d="M12 3c.132 0 .263 0 .393.01a9 9 0 108.596 8.596A7 7 0 0112 3z"
+//               />
+//             </svg>
+//           ) : (
+//             // Sun Icon
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               className="h-5 w-5"
+//               fill="none"
+//               viewBox="0 0 24 24"
+//               stroke="currentColor"
+//               strokeWidth="2"
+//             >
+//               <circle cx="12" cy="12" r="4" />
+//               <path
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//                 d="M12 2v2m6.364 1.636l-1.414 1.414M22 12h-2m-1.636 6.364l-1.414-1.414M12 22v-2M4.636 18.364l1.414-1.414M2 12h2m1.636-6.364l1.414 1.414"
+//               />
+//             </svg>
+//           )}
+//         </button>
+
+//         {/* ✅ USER DROPDOWN (DESKTOP) */}
+//         <div className="dropdown dropdown-end hidden lg:block">
+//           <label tabIndex={0} className="btn btn-circle btn-ghost border border-base-content/20">
+//             <span className="text-lg font-semibold">
+//               {data?.name ? data.name.charAt(0).toUpperCase() : "U"}
+//             </span>
+//           </label>
+
+//           <ul
+//             tabIndex={0}
+//             className="menu menu-sm dropdown-content bg-base-100 rounded-xl mt-3 w-48 shadow-md border"
+//           >
+//             {data && (
+//               <li>
+//                 <Link to="/profile">Profile</Link>
+//               </li>
 //             )}
-//             </button>
 
+//             {data ? (
+//               <li>
+//                 <a onClick={logoutHandler}>Logout</a>
+//               </li>
+//             ) : (
+//               <li>
+//                 <Link to="/login">Login</Link>
+//               </li>
+//             )}
+//           </ul>
+//         </div>
 
-//           {/* Mobile Menu Toggle */}
-//           <div className="dropdown dropdown-end lg:hidden">
-//             <label tabIndex={0} className="btn btn-ghost btn-circle">
-//               <svg xmlns="http://www.w3.org/2000/svg"
-//                 className="h-7 w-7"
-//                 fill="none" viewBox="0 0 24 24"
-//                 stroke="currentColor">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-//                   d="M4 6h16M4 12h16M4 18h16" />
-//               </svg>
-//             </label>
-
-//             <ul
-//               tabIndex={0}
-//               className="menu menu-sm dropdown-content bg-base-100/95 backdrop-blur-xl rounded-lg shadow-lg mt-3 w-48 p-2"
+//         {/* ✅ MOBILE MENU */}
+//         <div className="dropdown dropdown-end lg:hidden">
+//           <label tabIndex={0} className="btn btn-ghost btn-circle">
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               className="h-7 w-7"
+//               fill="none"
+//               viewBox="0 0 24 24"
+//               stroke="currentColor"
 //             >
-//               <li><a className="text-lg">Home</a></li>
-//               <li><a className="text-lg">Articles</a></li>
-//               <li><a className="text-lg">Books</a></li>
-//               <li><a className="text-lg">About</a></li>
-//             </ul>
-//           </div>
+//               <path strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+//             </svg>
+//           </label>
+
+//           <ul
+//             tabIndex={0}
+//             className="menu menu-sm dropdown-content bg-base-100 rounded-xl mt-3 w-48 shadow-lg border"
+//           >
+//             <li><Link to="/">Home</Link></li>
+
+//             {/* Mobile: Categories */}
+//             <li>
+//               <details>
+//                 <summary>Categories</summary>
+//                 <ul className="p-1">
+//                   {categoriesList.map((cat) => (
+//                     <li key={cat}><Link to={`/category/${cat}`}>{cat}</Link></li>
+//                   ))}
+//                 </ul>
+//               </details>
+//             </li>
+
+//             {/* Mobile: For People */}
+//             <li>
+//               <details>
+//                 <summary>For</summary>
+//                 <ul className="p-1">
+//                   {forPeopleList.map((fp) => (
+//                     <li key={fp}><Link to={`/for/${fp}`}>{fp}</Link></li>
+//                   ))}
+//                 </ul>
+//               </details>
+//             </li>
+
+//             {data ? (
+//               <>
+//                 <li><Link to="/profile">Profile</Link></li>
+//                 <li><a onClick={logoutHandler}>Logout</a></li>
+//               </>
+//             ) : (
+//               <li><Link to="/login">Login</Link></li>
+//             )}
+//           </ul>
 //         </div>
 //       </div>
-//     </header>
-//   );
+//     </div>
+//   </header>
+// );
+
+
 // }
 
 
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useGetUserProfileQuery, useLogoutMutation, userApiSlice } from "../Redux/UserApiSlice";
-import { contentApiSlice } from "../Redux/contentApiSlice";
+import {
+  useGetUserProfileQuery,
+  useLogoutMutation,
+  userApiSlice,
+} from "../Redux/UserApiSlice";
+
+// Lists
+const categoriesList = [
+  "Philosophy",
+  "Wisdom",
+  "Mental Health",
+  "Self-Improvement",
+  "Productivity",
+  "Stoicism",
+  "Life",
+];
+
+const forPeopleList = [
+  "Entrepreneurs",
+  "Students",
+  "Thinkers",
+  "Leaders",
+  "Fitness People",
+];
+
+const emotionList = [
+  { emoji: "😊", name: "happy" },
+  { emoji: "😢", name: "sad" },
+  { emoji: "😡", name: "angry" },
+  { emoji: "😌", name: "calm" },
+  { emoji: "🔥", name: "motivated" },
+  { emoji: "💔", name: "heartbroken" },
+  { emoji: "🤔", name: "thoughtful" },
+];
+
 export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { data, isLoading } = useGetUserProfileQuery();
+  const { data } = useGetUserProfileQuery();
   const [logout] = useLogoutMutation();
-
+  const [selectedEmotion, setSelectedEmotion] = useState(null);
   const [theme, setTheme] = useState("dark");
 
   const toggleTheme = () => {
@@ -154,129 +380,139 @@ export default function Header() {
     }
   };
 
+
+
+  // Reusable dropdown component
+  const Dropdown = ({ label, items, onClick, gridCols = 1 }) => (
+    <div className="dropdown dropdown-hover">
+      <label tabIndex={0} className="hover:text-primary cursor-pointer">
+        {label}
+      </label>
+      <ul
+        tabIndex={0}
+        className={`dropdown-content menu p-3 shadow bg-base-100 rounded-xl w-52 border ${
+          gridCols > 1 ? `grid grid-cols-${gridCols} gap-2 text-xl` : ""
+        }`}
+      >
+        {items.map((item) => (
+          <li key={item.name || item} className="text-center">
+            <button
+              onClick={() => onClick && onClick(item)}
+              className="hover:scale-105 transition text-base"
+            >
+              {item.emoji || item}
+            </button>
+            {!item.emoji && typeof item === "string" && (
+              <span className="ml-1">{item}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
   return (
-    <header className="sticky top-0 z-50 bg-base-100/80 backdrop-blur-xl border-b shadow-sm">
+    <header className="sticky top-0 z-50 bg-base-100/80 backdrop-blur-xl border-b border-base-300 dark:border-neutral-700 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
 
-        {/* LOGO */}
-        <Link to="/" className="flex items-center gap-1">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-1 select-none">
           <span className="text-3xl font-bold text-primary">Wisdom</span>
           <span className="text-3xl font-light">Well</span>
         </Link>
 
-        {/* DESKTOP MENU */}
-        <nav className="hidden lg:flex items-center gap-6 text-lg font-medium">
-          <Link to="/" className="hover:text-primary transition">Home</Link>
-          <Link to="/profile" className="hover:text-primary transition">Profile</Link>
+        {/* Desktop Navbar */}
+        <nav className="hidden lg:flex items-center gap-6 text-[16px] font-medium">
+
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `transition hover:text-primary ${isActive ? "text-primary font-semibold underline underline-offset-4" : ""}`
+            }
+          >
+            Home
+          </NavLink>
+
+          {/* Categories Dropdown */}
+          <Dropdown
+            label="Categories"
+            items={categoriesList}
+            onClick={(cat) => navigate(`/category/${cat}`)}
+          />
+
+          {/* For People Dropdown */}
+          <Dropdown
+            label="For"
+            items={forPeopleList}
+            onClick={(fp) => navigate(`/for/${fp}`)}
+          />
+
+       
+
+          {/* Profile Link */}
+          {data && (
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                `transition hover:text-primary ${isActive ? "text-primary font-semibold underline underline-offset-4" : ""}`
+              }
+            >
+              Profile
+            </NavLink>
+          )}
+{/* Search Bar */}
+<div className="hidden lg:block flex-grow max-w-sm mx-4">
+  <input
+    type="text"
+    placeholder="Search..."
+    className="input input-bordered input-sm w-full"
+    disabled
+  />
+</div>
+   {/* Emotion Dropdown */}
+          <Dropdown
+            label="Emotion"
+            items={emotionList}
+            onClick={(em) => {
+              setSelectedEmotion(em);
+              navigate(`/emotion/${em.name}`);
+            }}
+            gridCols={4}
+          />
+          {/* Selected Emotion near profile */}
+          {selectedEmotion && (
+            <span className="text-2xl ml-2" title={selectedEmotion.name}>
+              {selectedEmotion.emoji}
+            </span>
+          )}
         </nav>
 
-        {/* RIGHT ACTIONS */}
-        <div className="flex items-center gap-3">
+        {/* Theme Button */}
+        <button
+          onClick={toggleTheme}
+          className="btn btn-circle btn-ghost border border-base-content/20 hover:border-base-content/40 transition "
+        >
+          {theme === "light" ? (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c.132 0 .263 0 .393.01a9 9 0 108.596 8.596A7 7 0 0112 3z"/>
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="4"/>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2m6.364 1.636l-1.414 1.414M22 12h-2m-1.636 6.364l-1.414-1.414M12 22v-2M4.636 18.364l1.414-1.414M2 12h2m1.636-6.364l1.414 1.414"/>
+            </svg>
+          )}
+        </button>
 
-          {/* THEME BUTTON */}
-          <button
-            onClick={toggleTheme}
-            className="btn btn-circle btn-ghost border border-base-content/20 hover:border-base-content/40 transition"
-          >
-            {theme === "light" ? (
-              // Moon Icon
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 3c.132 0 .263 0 .393.01a9 9 0 108.596 8.596A7 7 0 0112 3z"
-                />
-              </svg>
-            ) : (
-              // Sun Icon
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="12" cy="12" r="4" />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 2v2m6.364 1.636l-1.414 1.414M22 12h-2m-1.636 6.364l-1.414-1.414M12 22v-2M4.636 18.364l1.414-1.414M2 12h2m1.636-6.364l1.414 1.414"
-                />
-              </svg>
-            )}
-          </button>
-
-          {/* USER DROPDOWN */}
-          <div className="dropdown dropdown-end hidden lg:block">
-            <label tabIndex={0} className="btn btn-circle btn-ghost border border-base-content/20">
-              <span className="text-lg font-semibold">
-                {data?.name ? data.name.slice(0, 1).toUpperCase() : "U"}
-              </span>
-            </label>
-
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100/95 backdrop-blur-xl rounded-box mt-3 w-48 shadow-md"
-            >
-              {data && (
-                <li>
-                  <Link to="/profile">Profile</Link>
-                </li>
-              )}
-
-              {data ? (
-                <li>
-                  <a onClick={logoutHandler}>Logout</a>
-                </li>
-              ) : (
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              )}
-            </ul>
-          </div>
-
-          {/* MOBILE MENU */}
-          <div className="dropdown dropdown-end lg:hidden">
-            <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </label>
-
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100/95 backdrop-blur-xl rounded-lg mt-3 w-48 shadow-lg"
-            >
-              <li><Link to="/">Home</Link></li>
-
-              {data && (
-                <>
-                  <li><Link to="/profile">Profile</Link></li>
-                  <li><a onClick={logoutHandler}>Logout</a></li>
-                </>
-              )}
-
-              {!data && (
-                <li><Link to="/login">Login</Link></li>
-              )}
-            </ul>
-          </div>
+        {/* User Dropdown */}
+        <div className="dropdown dropdown-end hidden lg:block ">
+          <label tabIndex={0} className="btn btn-circle btn-ghost border border-base-content/20">
+            <span className="text-lg font-semibold">{data?.name ? data.name.charAt(0).toUpperCase() : "U"}</span>
+          </label>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-xl mt-3 w-48 shadow-md border">
+            {data && <li><Link to="/profile">Profile</Link></li>}
+            {data ? <li><a onClick={logoutHandler}>Logout</a></li> : <li><Link to="/login">Login</Link></li>}
+          </ul>
         </div>
       </div>
     </header>

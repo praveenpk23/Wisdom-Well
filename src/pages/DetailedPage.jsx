@@ -166,6 +166,7 @@ import { useGetContentByIdQuery } from "../Redux/contentApiSlice";
 import { motion } from "framer-motion";
 import { FaWhatsapp, FaInstagram, FaTwitter, FaLinkedin, FaCopy } from "react-icons/fa";
 import LikeButton from "../components/LikeButton";
+import CommentSection from "../components/CommentSection";
 const PostDetails = () => {
   const { id } = useParams();
   const { data: post, isLoading, isError, error } = useGetContentByIdQuery(id);
@@ -217,6 +218,7 @@ const PostDetails = () => {
     await navigator.clipboard.writeText(url);
     alert("Link copied ✅");
   };
+
 
   return (
     <motion.div
@@ -355,25 +357,29 @@ const PostDetails = () => {
             </div>
           )}
         </motion.section>
-        {/* BOTTOM: LIKE + SHARE */}
+{/* BOTTOM AREA */}
 <motion.section
-  className="border-t border-gray-200 mt-16 pt-8 pb-10 flex flex-col gap-6"
+  className="mt-14 pt-8 pb-10 border-t border-gray-200"
   initial={{ opacity: 0 }}
   animate={{ opacity: 1 }}
   transition={{ delay: 0.4 }}
 >
-  {/* LIKE BUTTON */}
-  <div>
-    <LikeButton postId={post._id} />
+
+  {/* Like + Date Row */}
+  <div className="flex items-center justify-between mb-6">
+    <LikeButton contentId={post._id} size="md" />
+
+    {/* <span className="text-xs text-gray-500">
+      Updated: {new Date(post.createdAt).toLocaleDateString()}
+    </span> */}
   </div>
 
   {/* SHARE SECTION */}
   <div>
-    <h3 className="text-xl font-semibold mb-3">Share</h3>
+    <h3 className="text-lg font-semibold mb-3">Share</h3>
 
-    <div className="flex items-center gap-4 text-2xl">
+    <div className="flex items-center gap-5 text-2xl">
 
-      {/* WhatsApp */}
       <a
         href={`https://wa.me/?text=${encodeURIComponent(url)}`}
         target="_blank"
@@ -383,7 +389,6 @@ const PostDetails = () => {
         <FaWhatsapp />
       </a>
 
-      {/* Instagram */}
       <a
         href={`https://www.instagram.com/?url=${encodeURIComponent(url)}`}
         target="_blank"
@@ -393,7 +398,6 @@ const PostDetails = () => {
         <FaInstagram />
       </a>
 
-      {/* Twitter/X */}
       <a
         href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`}
         target="_blank"
@@ -403,7 +407,6 @@ const PostDetails = () => {
         <FaTwitter />
       </a>
 
-      {/* LinkedIn */}
       <a
         href={`https://www.linkedin.com/shareArticle?url=${encodeURIComponent(url)}`}
         target="_blank"
@@ -413,12 +416,8 @@ const PostDetails = () => {
         <FaLinkedin />
       </a>
 
-      {/* Copy Link */}
       <button
-        onClick={() => {
-          navigator.clipboard.writeText(url);
-          alert("Link copied ✅");
-        }}
+        onClick={() => navigator.clipboard.writeText(url)}
         className="text-gray-700 hover:scale-110 transition"
       >
         <FaCopy />
@@ -426,6 +425,9 @@ const PostDetails = () => {
     </div>
   </div>
 </motion.section>
+
+{/* COMMENTS SECTION */}
+<CommentSection contentId={post._id} />
 
       </article>
     </motion.div>
