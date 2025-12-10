@@ -9,6 +9,7 @@ import CategoryPage from '../pages/CategoryPage';
 import ForPeoplePage from '../pages/ForPeoplePage';
 import AdminPage from '../pages/AdminPage';
 import EmotionPage from '../pages/EmotionPage';
+import ForgetPassword from '../pages/ForgetPassword';
 export  const AllRouters = ()=>{
     return(
         <Routes>
@@ -22,6 +23,7 @@ export  const AllRouters = ()=>{
             <Route path="/register" element={<RegisterScreen />} />
             <Route path="/aichat" element={<AiChat />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/resetpassword" element={<ForgetPassword />} />
         </Routes>
     )
 }

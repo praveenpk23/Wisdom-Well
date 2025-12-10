@@ -37,12 +37,10 @@
 
 //   const HandleRegister = async (e) => {
 //     e.preventDefault();
-
 //     if (password !== confirmPassword) {
 //       setError("Passwords do not match");
 //       return;
 //     }
-
 //     try {
 //       await registerUser({
 //         name,
@@ -72,7 +70,7 @@
 //     );
 //   };
 
-//     const handleSelectAllInterests = () => {
+//   const handleSelectAllInterests = () => {
 //     if (interests.length === categories.length) {
 //       setInterests([]); // unselect all
 //     } else {
@@ -80,50 +78,44 @@
 //     }
 //   };
 
-
 //   return (
-//     <div className="min-h-screen px-4 flex items-center justify-center bg-base-200">
-//       <div className="w-full max-w-3xl bg-base-100 shadow-xl rounded-2xl p-6 md:p-10">
-
-//         {/* Title */}
-//         <h2 className="text-3xl font-bold text-center mb-6">
-//           Create Your Account
-//         </h2>
+//     <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
+//       <div className="w-full max-w-2xl bg-base-100 shadow-xl rounded-xl p-8">
+//         <h2 className="text-3xl font-bold text-center mb-6">Create Account</h2>
 
 //         {error && <div className="alert alert-error mb-4">{error}</div>}
 
-//         <form onSubmit={HandleRegister} className="grid gap-6">
+//         <form onSubmit={HandleRegister} className="space-y-6">
 
-//           {/* Name & Email */}
-//           <div className="grid md:grid-cols-2 gap-4">
-//             <div className="form-control">
-//               <label className="label font-medium">Name</label>
-//               <input
-//                 type="text"
-//                 className="input input-bordered w-full"
-//                 placeholder="John Doe"
-//                 value={name}
-//                 onChange={(e) => setName(e.target.value)}
-//                 required
-//               />
-//             </div>
-
-//             <div className="form-control">
-//               <label className="label font-medium">Email</label>
-//               <input
-//                 type="email"
-//                 className="input input-bordered w-full"
-//                 placeholder="john@example.com"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//                 required
-//               />
-//             </div>
+//           {/* NAME */}
+//           <div>
+//             <label className="label font-semibold">Name</label>
+//             <input
+//               type="text"
+//               className="input input-bordered w-full"
+//               placeholder="Your full name"
+//               value={name}
+//               onChange={(e) => setName(e.target.value)}
+//               required
+//             />
 //           </div>
 
-//           {/* Profession */}
-//           <div className="form-control">
-//             <label className="label font-medium">Profession</label>
+//           {/* EMAIL */}
+//           <div>
+//             <label className="label font-semibold">Email</label>
+//             <input
+//               type="email"
+//               className="input input-bordered w-full"
+//               placeholder="you@example.com"
+//               value={email}
+//               onChange={(e) => setEmail(e.target.value)}
+//               required
+//             />
+//           </div>
+
+//           {/* PROFESSION */}
+//           <div>
+//             <label className="label font-semibold">Profession</label>
 //             <select
 //               className="select select-bordered w-full"
 //               value={profession}
@@ -140,21 +132,25 @@
 //             </select>
 //           </div>
 
-//           {/* Interests */}
+//           {/* INTERESTS */}
 //           <div>
-//              <div className="flex items-center justify-between">
+//             <div className="flex items-center justify-between">
 //               <label className="label font-semibold">Interests</label>
 //               <button
 //                 type="button"
 //                 onClick={handleSelectAllInterests}
-//                 className="btn btn-xs btn-outline mt-10"
+//                 className="btn btn-xs btn-outline"
 //               >
 //                 {interests.length === categories.length ? "Unselect All" : "Select All"}
 //               </button>
-//             </div>           
-//             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+//             </div>
+
+//             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-2">
 //               {categories.map((cat) => (
-//                 <label key={cat} className="flex items-center gap-2 bg-base-200 p-2 rounded-lg cursor-pointer">
+//                 <label
+//                   key={cat}
+//                   className="flex items-center gap-2 p-2 rounded-lg border border-base-300 hover:bg-base-200 cursor-pointer"
+//                 >
 //                   <input
 //                     type="checkbox"
 //                     className="checkbox checkbox-sm"
@@ -167,12 +163,15 @@
 //             </div>
 //           </div>
 
-//           {/* For People */}
+//           {/* FOR PEOPLE */}
 //           <div>
 //             <label className="label font-semibold">You relate with</label>
-//             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+//             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
 //               {peopleOptions.map((p) => (
-//                 <label key={p} className="flex items-center gap-2 bg-base-200 p-2 rounded-lg cursor-pointer">
+//                 <label
+//                   key={p}
+//                   className="flex items-center gap-2 p-2 rounded-lg border border-base-300 hover:bg-base-200 cursor-pointer"
+//                 >
 //                   <input
 //                     type="checkbox"
 //                     className="checkbox checkbox-sm"
@@ -185,21 +184,21 @@
 //             </div>
 //           </div>
 
-//           {/* Bio */}
-//           <div className="form-control">
-//             <label className="label font-medium">Short Bio</label>
+//           {/* BIO */}
+//           <div>
+//             <label className="label font-semibold">Short Bio</label>
 //             <textarea
-//               className="textarea textarea-bordered w-full h-24 resize-none"
+//               className="textarea textarea-bordered w-full h-24"
 //               placeholder="Tell a little about yourself..."
 //               value={bio}
 //               onChange={(e) => setBio(e.target.value)}
 //             ></textarea>
 //           </div>
 
-//           {/* Password Fields */}
-//           <div className="grid md:grid-cols-2 gap-4">
-//             <div className="form-control">
-//               <label className="label font-medium">Password</label>
+//           {/* PASSWORD */}
+//           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+//             <div>
+//               <label className="label font-semibold">Password</label>
 //               <input
 //                 type="password"
 //                 className="input input-bordered w-full"
@@ -210,8 +209,8 @@
 //               />
 //             </div>
 
-//             <div className="form-control">
-//               <label className="label font-medium">Confirm Password</label>
+//             <div>
+//               <label className="label font-semibold">Confirm Password</label>
 //               <input
 //                 type="password"
 //                 className="input input-bordered w-full"
@@ -223,7 +222,7 @@
 //             </div>
 //           </div>
 
-//           {/* Button */}
+//           {/* SUBMIT */}
 //           <button
 //             type="submit"
 //             className="btn btn-primary w-full mt-4"
@@ -232,11 +231,10 @@
 //             {isLoading ? (
 //               <span className="loading loading-spinner"></span>
 //             ) : (
-//               "Create Account"
+//               "Register"
 //             )}
 //           </button>
 
-//           {/* Login Link */}
 //           <p className="text-center mt-4">
 //             Already have an account?{" "}
 //             <Link to="/login" className="link link-primary">
@@ -251,27 +249,37 @@
 
 // export default RegisterScreen;
 
-
-
 import React, { useState } from "react";
-import { useRegisterMutation } from "../Redux/UserApiSlice";
+import {
+  useRegisterStep1Mutation,
+  useRegisterVerifyMutation,
+} from "../Redux/UserApiSlice";
 import { useNavigate, Link } from "react-router-dom";
 
 const RegisterScreen = () => {
+  const navigate = useNavigate();
+
+  // -------- STATES --------
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profession, setProfession] = useState("Other");
   const [interests, setInterests] = useState([]);
   const [forPeople, setForPeople] = useState([]);
   const [bio, setBio] = useState("");
-
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
-  const [registerUser, { isLoading }] = useRegisterMutation();
+  // -------- RTK MUTATIONS --------
+  const [registerStep1, { isLoading: loadingStep1 }] =
+    useRegisterStep1Mutation();
+  const [registerVerify, { isLoading: loadingVerify }] =
+    useRegisterVerifyMutation();
 
+  // -------- OPTIONS --------
   const categories = [
     "Philosophy",
     "Wisdom",
@@ -290,29 +298,7 @@ const RegisterScreen = () => {
     "Fitness People",
   ];
 
-  const HandleRegister = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-    try {
-      await registerUser({
-        name,
-        email,
-        password,
-        profession,
-        interests,
-        forPeople,
-        bio,
-      }).unwrap();
-
-      navigate("/");
-    } catch (err) {
-      setError(err?.data?.message || "Registration Failed");
-    }
-  };
-
+  // -------- HANDLERS --------
   const toggleInterest = (value) => {
     setInterests((prev) =>
       prev.includes(value) ? prev.filter((i) => i !== value) : [...prev, value]
@@ -327,176 +313,274 @@ const RegisterScreen = () => {
 
   const handleSelectAllInterests = () => {
     if (interests.length === categories.length) {
-      setInterests([]); // unselect all
+      setInterests([]);
     } else {
-      setInterests(categories); // select all
+      setInterests(categories);
+    }
+  };
+
+  // -------- STEP 1: SEND OTP --------
+  const HandleRegisterStep1 = async (e) => {
+    e.preventDefault();
+
+    setError(null);
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await registerStep1({
+        name,
+        email,
+        password,
+        profession,
+        interests,
+        forPeople,
+        bio,
+      }).unwrap();
+
+      setOtpSent(true);
+      console.log("OTP Response:", response);
+      if (response.code == "1") {
+        setMessage(
+          "Your last OTP is still valid. Please check your email & enter latest code."
+        );
+      }
+    } catch (err) {
+      setError(err?.data?.message || "Failed to send OTP");
+    }
+  };
+
+  // -------- STEP 2: VERIFY OTP --------
+  const HandleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    try {
+      await registerVerify({
+        email,
+        otp,
+      }).unwrap();
+
+      navigate("/"); // redirect after successful registration
+    } catch (err) {
+      setError(err?.data?.message || "Invalid OTP");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
       <div className="w-full max-w-2xl bg-base-100 shadow-xl rounded-xl p-8">
-        <h2 className="text-3xl font-bold text-center mb-6">Create Account</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">
+          {otpSent ? "Verify OTP" : "Create Account"}
+        </h2>
 
         {error && <div className="alert alert-error mb-4">{error}</div>}
 
-        <form onSubmit={HandleRegister} className="space-y-6">
+        <form
+          onSubmit={otpSent ? HandleVerifyOtp : HandleRegisterStep1}
+          className="space-y-6"
+        >
+          {!otpSent ? (
+            <>
+              {/* NAME */}
+              <div>
+                <label className="label font-semibold">Name</label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  placeholder="Your full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
 
-          {/* NAME */}
-          <div>
-            <label className="label font-semibold">Name</label>
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              placeholder="Your full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
+              {/* EMAIL */}
+              <div>
+                <label className="label font-semibold">Email</label>
+                <input
+                  type="email"
+                  className="input input-bordered w-full"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
 
-          {/* EMAIL */}
-          <div>
-            <label className="label font-semibold">Email</label>
-            <input
-              type="email"
-              className="input input-bordered w-full"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+              {/* PROFESSION */}
+              <div>
+                <label className="label font-semibold">Profession</label>
+                <select
+                  className="select select-bordered w-full"
+                  value={profession}
+                  onChange={(e) => setProfession(e.target.value)}
+                >
+                  <option>Entrepreneur</option>
+                  <option>Student</option>
+                  <option>Developer</option>
+                  <option>Artist</option>
+                  <option>Thinker</option>
+                  <option>Fitness</option>
+                  <option>Creator</option>
+                  <option>Other</option>
+                </select>
+              </div>
 
-          {/* PROFESSION */}
-          <div>
-            <label className="label font-semibold">Profession</label>
-            <select
-              className="select select-bordered w-full"
-              value={profession}
-              onChange={(e) => setProfession(e.target.value)}
-            >
-              <option>Entrepreneur</option>
-              <option>Student</option>
-              <option>Developer</option>
-              <option>Artist</option>
-              <option>Thinker</option>
-              <option>Fitness</option>
-              <option>Creator</option>
-              <option>Other</option>
-            </select>
-          </div>
+              {/* INTERESTS */}
+              <div>
+                <div className="flex items-center justify-between">
+                  <label className="label font-semibold">Interests</label>
+                  <button
+                    type="button"
+                    onClick={handleSelectAllInterests}
+                    className="btn btn-xs btn-outline"
+                  >
+                    {interests.length === categories.length
+                      ? "Unselect All"
+                      : "Select All"}
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-2">
+                  {categories.map((cat) => (
+                    <label
+                      key={cat}
+                      className="flex items-center gap-2 p-2 rounded-lg border border-base-300 hover:bg-base-200 cursor-pointer"
+                    >
+                      <input
+                        type="checkbox"
+                        className="checkbox checkbox-sm"
+                        checked={interests.includes(cat)}
+                        onChange={() => toggleInterest(cat)}
+                      />
+                      <span className="text-sm">{cat}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
 
-          {/* INTERESTS */}
-          <div>
-            <div className="flex items-center justify-between">
-              <label className="label font-semibold">Interests</label>
+              {/* FOR PEOPLE */}
+              <div>
+                <label className="label font-semibold">You relate with</label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {peopleOptions.map((p) => (
+                    <label
+                      key={p}
+                      className="flex items-center gap-2 p-2 rounded-lg border border-base-300 hover:bg-base-200 cursor-pointer"
+                    >
+                      <input
+                        type="checkbox"
+                        className="checkbox checkbox-sm"
+                        checked={forPeople.includes(p)}
+                        onChange={() => toggleForPeople(p)}
+                      />
+                      <span className="text-sm">{p}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* BIO */}
+              <div>
+                <label className="label font-semibold">Short Bio</label>
+                <textarea
+                  className="textarea textarea-bordered w-full h-24"
+                  placeholder="Tell a little about yourself..."
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                />
+              </div>
+
+              {/* PASSWORD */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="label font-semibold">Password</label>
+                  <input
+                    type="password"
+                    className="input input-bordered w-full"
+                    placeholder="********"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="label font-semibold">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    className="input input-bordered w-full"
+                    placeholder="********"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* SUBMIT */}
               <button
-                type="button"
-                onClick={handleSelectAllInterests}
-                className="btn btn-xs btn-outline"
+                type="submit"
+                className="btn btn-primary w-full mt-4"
+                disabled={loadingStep1}
               >
-                {interests.length === categories.length ? "Unselect All" : "Select All"}
+                {loadingStep1 ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Send OTP"
+                )}
               </button>
-            </div>
+            </>
+          ) : (
+            <>
+              {/* OTP INPUT */}
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-2">
-              {categories.map((cat) => (
-                <label
-                  key={cat}
-                  className="flex items-center gap-2 p-2 rounded-lg border border-base-300 hover:bg-base-200 cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-sm"
-                    checked={interests.includes(cat)}
-                    onChange={() => toggleInterest(cat)}
-                  />
-                  <span className="text-sm">{cat}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* FOR PEOPLE */}
-          <div>
-            <label className="label font-semibold">You relate with</label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {peopleOptions.map((p) => (
-                <label
-                  key={p}
-                  className="flex items-center gap-2 p-2 rounded-lg border border-base-300 hover:bg-base-200 cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-sm"
-                    checked={forPeople.includes(p)}
-                    onChange={() => toggleForPeople(p)}
-                  />
-                  <span className="text-sm">{p}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* BIO */}
-          <div>
-            <label className="label font-semibold">Short Bio</label>
-            <textarea
-              className="textarea textarea-bordered w-full h-24"
-              placeholder="Tell a little about yourself..."
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-            ></textarea>
-          </div>
-
-          {/* PASSWORD */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="label font-semibold">Password</label>
+              <p className="text-center text-sm">
+                OTP sent to <b>{email}</b>
+              </p>
+              {setTimeout(() => {
+                setMessage("");
+              }, 10000) &&
+                message && (
+                  <p className="text-center text-sm text-green-500 mt-2">
+                    {message}
+                  </p>
+                )}
               <input
-                type="password"
+                type="text"
                 className="input input-bordered w-full"
-                placeholder="********"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter 6-digit OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
                 required
               />
-            </div>
+              <button
+                type="submit"
+                className="btn btn-primary w-full mt-4"
+                disabled={loadingVerify}
+              >
+                {loadingVerify ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Verify & Create Account"
+                )}
+              </button>
+            </>
+          )}
+        </form>
 
-            <div>
-              <label className="label font-semibold">Confirm Password</label>
-              <input
-                type="password"
-                className="input input-bordered w-full"
-                placeholder="********"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-          </div>
-
-          {/* SUBMIT */}
-          <button
-            type="submit"
-            className="btn btn-primary w-full mt-4"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <span className="loading loading-spinner"></span>
-            ) : (
-              "Register"
-            )}
-          </button>
-
+        {!otpSent && (
           <p className="text-center mt-4">
             Already have an account?{" "}
             <Link to="/login" className="link link-primary">
               Login
             </Link>
           </p>
-        </form>
+        )}
       </div>
     </div>
   );

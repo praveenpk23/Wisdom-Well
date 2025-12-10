@@ -1,4 +1,3 @@
-
 // import { useState } from "react";
 // import { Link, NavLink, useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
@@ -60,7 +59,6 @@
 //   { emoji: "💔", name: "heartbroken" },
 //   { emoji: "🤔", name: "thoughtful" },
 // ];
-
 
 //   return (
 //   <header className="sticky top-0 z-50 bg-base-100/80 backdrop-blur-xl border-b border-base-300 dark:border-neutral-700 shadow-sm">
@@ -313,10 +311,7 @@
 //   </header>
 // );
 
-
 // }
-
-
 
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -380,8 +375,6 @@ export default function Header() {
     }
   };
 
-
-
   // Reusable dropdown component
   const Dropdown = ({ label, items, onClick, gridCols = 1 }) => (
     <div className="dropdown dropdown-hover">
@@ -414,7 +407,6 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-base-100/80 backdrop-blur-xl border-b border-base-300 dark:border-neutral-700 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-
         {/* Logo */}
         <Link to="/" className="flex items-center gap-1 select-none">
           <span className="text-3xl font-bold text-primary">Wisdom</span>
@@ -423,11 +415,14 @@ export default function Header() {
 
         {/* Desktop Navbar */}
         <nav className="hidden lg:flex items-center gap-6 text-[16px] font-medium">
-
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `transition hover:text-primary ${isActive ? "text-primary font-semibold underline underline-offset-4" : ""}`
+              `transition hover:text-primary ${
+                isActive
+                  ? "text-primary font-semibold underline underline-offset-4"
+                  : ""
+              }`
             }
           >
             Home
@@ -447,29 +442,32 @@ export default function Header() {
             onClick={(fp) => navigate(`/for/${fp}`)}
           />
 
-       
-
           {/* Profile Link */}
           {data && (
             <NavLink
               to="/profile"
               className={({ isActive }) =>
-                `transition hover:text-primary ${isActive ? "text-primary font-semibold underline underline-offset-4" : ""}`
+                `transition hover:text-primary ${
+                  isActive
+                    ? "text-primary font-semibold underline underline-offset-4"
+                    : ""
+                }`
               }
             >
               Profile
             </NavLink>
           )}
-{/* Search Bar */}
-<div className="hidden lg:block flex-grow max-w-sm mx-4">
-  <input
-    type="text"
-    placeholder="Search..."
-    className="input input-bordered input-sm w-full"
-    disabled
-  />
-</div>
-   {/* Emotion Dropdown */}
+
+          {/* Search Bar */}
+          <div className="hidden lg:block flex-grow max-w-sm mx-4">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="input input-bordered input-sm w-full"
+              disabled
+            />
+          </div>
+          {/* Emotion Dropdown */}
           <Dropdown
             label="Emotion"
             items={emotionList}
@@ -493,25 +491,70 @@ export default function Header() {
           className="btn btn-circle btn-ghost border border-base-content/20 hover:border-base-content/40 transition "
         >
           {theme === "light" ? (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c.132 0 .263 0 .393.01a9 9 0 108.596 8.596A7 7 0 0112 3z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 3c.132 0 .263 0 .393.01a9 9 0 108.596 8.596A7 7 0 0112 3z"
+              />
             </svg>
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <circle cx="12" cy="12" r="4"/>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2m6.364 1.636l-1.414 1.414M22 12h-2m-1.636 6.364l-1.414-1.414M12 22v-2M4.636 18.364l1.414-1.414M2 12h2m1.636-6.364l1.414 1.414"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 2v2m6.364 1.636l-1.414 1.414M22 12h-2m-1.636 6.364l-1.414-1.414M12 22v-2M4.636 18.364l1.414-1.414M2 12h2m1.636-6.364l1.414 1.414"
+              />
             </svg>
           )}
         </button>
 
         {/* User Dropdown */}
         <div className="dropdown dropdown-end hidden lg:block ">
-          <label tabIndex={0} className="btn btn-circle btn-ghost border border-base-content/20">
-            <span className="text-lg font-semibold">{data?.name ? data.name.charAt(0).toUpperCase() : "U"}</span>
+          <label
+            tabIndex={0}
+            className="btn btn-circle btn-ghost border border-base-content/20"
+          >
+            <span className="text-lg font-semibold">
+              {data?.name ? data.name.charAt(0).toUpperCase() : "U"}
+            </span>
           </label>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-xl mt-3 w-48 shadow-md border">
-            {data && <li><Link to="/profile">Profile</Link></li>}
-            {data ? <li><a onClick={logoutHandler}>Logout</a></li> : <li><Link to="/login">Login</Link></li>}
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-xl mt-3 w-48 shadow-md border"
+          >
+            {data && (
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+            )}
+            {data ? (
+              <li>
+                <a onClick={logoutHandler}>Logout</a>
+              </li>
+            ) : (
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            )}
+            <li>
+              <Link to="/resetpassword">Reset Password</Link>
+            </li>
           </ul>
         </div>
       </div>

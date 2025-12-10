@@ -58,6 +58,11 @@ getContentsByEmotion: builder.query({
         body: { contentId },
       }),
       // invalidatesTags: ["Content", "Like"],
+      invalidatesTags: (result, error, contentId) => [
+  { type: "Like", id: contentId },
+  { type: "Content", id: contentId }, // optional for full content refresh
+]
+
     }),
 
     // ✅ 6. Get Like Count for a content 
@@ -66,7 +71,9 @@ getContentsByEmotion: builder.query({
         url: `${CONTENT_URL}/count/${contentId}`,
         method: "GET",
       }),
-      providesTags: ["Like"],
+      // providesTags: ["Like"],
+      providesTags: (result, error, contentId) => [{ type: "Like", id: contentId }]
+
     }),
 
 // Admin: Create content
