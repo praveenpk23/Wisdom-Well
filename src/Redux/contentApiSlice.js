@@ -31,24 +31,23 @@ export const contentApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Content"],
     }),
 
-   // ✅ 4. Get contents by Audience "for"
-getContentsByFor: builder.query({
-  query: ({ forValue, page = 1, limit = 10 }) => ({
-    url: `${CONTENT_URL}/for/${forValue}?page=${page}&limit=${limit}`,
-    method: "GET",
-  }),
-  providesTags: ["Content"],
-}),
+    // ✅ 4. Get contents by Audience "for"
+    getContentsByFor: builder.query({
+      query: ({ forValue, page = 1, limit = 10 }) => ({
+        url: `${CONTENT_URL}/for/${forValue}?page=${page}&limit=${limit}`,
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
 
-// ✅ Get contents by Emotion
-getContentsByEmotion: builder.query({
-  query: ({ emotion, page = 1, limit = 10 }) => ({
-    url: `${CONTENT_URL}/emotion/${emotion}?page=${page}&limit=${limit}`,
-    method: "GET",
-  }),
-  providesTags: ["Content"],
-}),
-
+    // ✅ Get contents by Emotion
+    getContentsByEmotion: builder.query({
+      query: ({ emotion, page = 1, limit = 10 }) => ({
+        url: `${CONTENT_URL}/emotion/${emotion}?page=${page}&limit=${limit}`,
+        method: "GET",
+      }),
+      providesTags: ["Content"],
+    }),
 
     // ✅ 5. Like / Unlike toggle
     toggleLike: builder.mutation({
@@ -59,24 +58,24 @@ getContentsByEmotion: builder.query({
       }),
       // invalidatesTags: ["Content", "Like"],
       invalidatesTags: (result, error, contentId) => [
-  { type: "Like", id: contentId },
-  { type: "Content", id: contentId }, // optional for full content refresh
-]
-
+        { type: "Like", id: contentId },
+        { type: "Content", id: contentId }, // optional for full content refresh
+      ],
     }),
 
-    // ✅ 6. Get Like Count for a content 
+    // ✅ 6. Get Like Count for a content
     getLikesCount: builder.query({
       query: (contentId) => ({
         url: `${CONTENT_URL}/count/${contentId}`,
         method: "GET",
       }),
       // providesTags: ["Like"],
-      providesTags: (result, error, contentId) => [{ type: "Like", id: contentId }]
-
+      providesTags: (result, error, contentId) => [
+        { type: "Like", id: contentId },
+      ],
     }),
 
-// Admin: Create content
+    // Admin: Create content
     createContent: builder.mutation({
       query: (newContent) => ({
         url: `${CONTENT_URL}`,
@@ -107,9 +106,24 @@ getContentsByEmotion: builder.query({
       }),
       invalidatesTags: ["Content"],
     }),
+    // 🔍 SEARCH CONTENT
+    searchContents: builder.query({
+      query: ({ q, page = 1, limit = 10, filters = {} }) => ({
+        url: `${CONTENT_URL}/search`,
+        // url: "/api/content/",
+        params: { q, page, limit, ...filters },
+      }),
+      keepUnusedDataFor: 30,
+    }),
 
-
-
+    // 🔮 SUGGESTIONS
+    getSuggestions: builder.query({
+      query: (q) => ({
+        url: `${CONTENT_URL}/suggestions`,
+        // url: "/api/content/",
+        params: { q },
+      }),
+    }),
   }),
 });
 
@@ -125,5 +139,7 @@ export const {
   useCreateContentMutation,
   useUpdateContentMutation,
   useDeleteContentMutation,
-  
+  // Search and Suggestions hooks
+  useSearchContentsQuery,
+  useLazyGetSuggestionsQuery,
 } = contentApiSlice;

@@ -316,6 +316,7 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+// import { SearchIcon } from "@heroicons/react/outline";
 import {
   useGetUserProfileQuery,
   useLogoutMutation,
@@ -459,14 +460,15 @@ export default function Header() {
           )}
 
           {/* Search Bar */}
-          <div className="hidden lg:block flex-grow max-w-sm mx-4">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="input input-bordered input-sm w-full"
-              disabled
-            />
-          </div>
+         <div className="hidden lg:flex items-center flex-grow max-w-sm mx-4">
+          <button
+            onClick={() => navigate("/search")}
+            // className="p-2 rounded-md hover:bg-gray-200 transition"
+          >
+            Search
+            {/* <SearchIcon className="h-5 w-5 text-gray-600" /> */}
+          </button>
+        </div>
           {/* Emotion Dropdown */}
           <Dropdown
             label="Emotion"

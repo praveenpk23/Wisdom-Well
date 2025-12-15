@@ -10,6 +10,7 @@ import ForPeoplePage from '../pages/ForPeoplePage';
 import AdminPage from '../pages/AdminPage';
 import EmotionPage from '../pages/EmotionPage';
 import ForgetPassword from '../pages/ForgetPassword';
+import SearchPage from '../pages/SearchPage';
 export  const AllRouters = ()=>{
     return(
         <Routes>
@@ -24,6 +25,8 @@ export  const AllRouters = ()=>{
             <Route path="/aichat" element={<AiChat />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/resetpassword" element={<ForgetPassword />} />
+            <Route path="/search" element={<SearchPage />} />
+
         </Routes>
     )
 }
