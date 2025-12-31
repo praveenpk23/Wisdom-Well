@@ -178,6 +178,8 @@ const ProfilePage = () => {
   const { data: profileData, isSuccess } = useGetUserProfileQuery();
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
+  console.log("Profile Data:", profileData);
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -218,6 +220,7 @@ const ProfilePage = () => {
         bio: profileData.bio || "",
         interests: profileData.interests || [],
         forPeople: profileData.forPeople || [],
+        username:profileData.username || "",
       });
     }
   }, [profileData]);
@@ -252,8 +255,8 @@ const ProfilePage = () => {
             />
           </div>
           <div>
-            <h1 className="text-3xl font-bold">{user.name}</h1>
-            <p className="text-sm text-gray-500">{user.email}</p>
+            <h1 className="text-3xl font-bold">{user.username}</h1>
+            <p className="text-md text-gray-500 mt-3 mb-1">{user.email  }</p>
           </div>
         </div>
 
@@ -274,6 +277,7 @@ const ProfilePage = () => {
             type="email"
             className="input input-bordered w-full"
             value={user.email}
+            disabled
             onChange={(e) => setUser({ ...user, email: e.target.value })}
           />
         </div>

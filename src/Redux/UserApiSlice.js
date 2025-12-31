@@ -82,6 +82,13 @@ const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    // Check username
+    checkUsername: builder.query({
+      query: (username) => ({
+        url: `${USER_URL}/check-username`,
+        params: { username },
+      }),
+    }),
   }),
 });
 export { userApiSlice };
@@ -96,4 +103,5 @@ export const {
   useRegisterStep1Mutation,
   useForgotPasswordStep1Mutation,
   useForgotPasswordStep2Mutation,
+  useCheckUsernameQuery,
 } = userApiSlice;

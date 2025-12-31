@@ -14,7 +14,7 @@ const Home = () => {
     limit: 10,
   });
 
-  console.log("Fetched contents:", data);
+  // console.log("Fetched contents:", data);
   
   // ✅ Append paginated results
   useEffect(() => {
@@ -94,7 +94,6 @@ return (
               ">
                 {content.title}
               </h2>
-            </Link>
 
             {/* Summary */}
             <p className="
@@ -103,14 +102,21 @@ return (
             ">
               {content.words}
             </p>
+            </Link>
 
             {/* Bottom Bar */}
             <div className="flex items-center justify-between mt-4">
 
               {/* Date */}
-              <span className="text-xs opacity-60">
-                {new Date(content.createdAt).toLocaleDateString()}
-              </span>
+             <span className="text-xs opacity-60">
+            {new Date(content.createdAt).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
+          </span>
+
+              
 
               {/* Like Button */}
               <LikeButton contentId={content._id} size="sm" />

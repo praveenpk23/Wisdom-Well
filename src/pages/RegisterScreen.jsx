@@ -249,19 +249,21 @@
 
 // export default RegisterScreen;
 
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import {
   useRegisterStep1Mutation,
   useRegisterVerifyMutation,
+  useCheckUsernameQuery
 } from "../Redux/UserApiSlice";
 import { useNavigate, Link } from "react-router-dom";
-
+import useDebounce from "../hooks/useDebounce";
 const RegisterScreen = () => {
   const navigate = useNavigate();
 
   // -------- STATES --------
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [profession, setProfession] = useState("Other");
   const [interests, setInterests] = useState([]);
   const [forPeople, setForPeople] = useState([]);
@@ -278,6 +280,21 @@ const RegisterScreen = () => {
     useRegisterStep1Mutation();
   const [registerVerify, { isLoading: loadingVerify }] =
     useRegisterVerifyMutation();
+
+//   const {
+//   data: usernameData,
+//   isFetching: checkingUsername,
+// } = useCheckUsernameQuery(username, {
+//   skip: !username,
+// });
+
+const debouncedUsername = useDebounce(username, 500);
+
+const { data: usernameData, isFetching:checkingUsername } = useCheckUsernameQuery(debouncedUsername, {
+  skip: !debouncedUsername,
+});
+
+const isUsernameAvailable = usernameData?.available;
 
   // -------- OPTIONS --------
   const categories = [
@@ -338,6 +355,7 @@ const RegisterScreen = () => {
         profession,
         interests,
         forPeople,
+        username,
         bio,
       }).unwrap();
 
@@ -370,6 +388,13 @@ const RegisterScreen = () => {
     }
   };
 
+useEffect(() => {
+  if (message) {
+    const timer = setTimeout(() => setMessage(""), 10000);
+    return () => clearTimeout(timer);
+  }
+}, [message]);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
       <div className="w-full max-w-2xl bg-base-100 shadow-xl rounded-xl p-8">
@@ -397,6 +422,34 @@ const RegisterScreen = () => {
                   required
                 />
               </div>
+
+                {/* USERNAME */}
+              <div>
+                <label className="label font-semibold">Username</label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  placeholder="Type"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
+          {username && checkingUsername && (
+  <p className="text-sm text-gray-500 mt-1">Checking username...</p>
+)}
+
+{username && !checkingUsername && isUsernameAvailable === false && (
+  <p className="text-red-500 text-sm mt-1">
+    Username is already taken.
+  </p>
+)}
+
+{username && !checkingUsername && isUsernameAvailable === true && (
+  <p className="text-green-500 text-sm mt-1">
+    Username is available.
+  </p>
+)}
 
               {/* EMAIL */}
               <div>
@@ -526,8 +579,7 @@ const RegisterScreen = () => {
               <button
                 type="submit"
                 className="btn btn-primary w-full mt-4"
-                disabled={loadingStep1}
-              >
+                disabled={loadingStep1 || isUsernameAvailable === false}              >
                 {loadingStep1 ? (
                   <span className="loading loading-spinner"></span>
                 ) : (
@@ -542,14 +594,12 @@ const RegisterScreen = () => {
               <p className="text-center text-sm">
                 OTP sent to <b>{email}</b>
               </p>
-              {setTimeout(() => {
-                setMessage("");
-              }, 10000) &&
-                message && (
+             
+                
+                {message && (
                   <p className="text-center text-sm text-green-500 mt-2">
                     {message}
-                  </p>
-                )}
+                  </p>)}
               <input
                 type="text"
                 className="input input-bordered w-full"
@@ -568,6 +618,18 @@ const RegisterScreen = () => {
                 ) : (
                   "Verify & Create Account"
                 )}
+              </button>
+
+              <button 
+                type="button"
+                className="btn btn-secondary w-1/3 mt-4"
+                onClick={() => {
+                  setOtpSent(false);
+                  setOtp("");
+                  setMessage("");
+                }}
+              >
+                 Back to Registration
               </button>
             </>
           )}
