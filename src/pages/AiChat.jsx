@@ -19,7 +19,7 @@ export default function AiChat() {
 
   // Redirect to login if not authenticated
   useEffect(() => {
-    if (profileData && !profileData._id) {
+    if (!profileData || !profileData._id) {
       navigate("/login");
     }
   }, [profileData, navigate]);

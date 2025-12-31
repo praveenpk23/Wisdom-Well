@@ -622,15 +622,17 @@ export default function Header() {
     document.documentElement.setAttribute("data-theme", themeOnLocal);
   })
   
-  const logoutHandler = async () => {
-    try {
-      await logout();
-      dispatch(userApiSlice.util.resetApiState());
-      navigate("/login");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
+const logoutHandler = async () => {
+  try {
+    await logout().unwrap();   // backend clears cookie
+    dispatch(userApiSlice.util.resetApiState());
+    navigate("/", { replace: true });
+  } catch (err) {
+    console.error("Logout failed", err);
+  }
+};
+
 
   // Professional dropdown
   const Dropdown = ({ label, items, onClick }) => (
