@@ -627,7 +627,7 @@ const logoutHandler = async () => {
   try {
     await logout().unwrap();   // backend clears cookie
     dispatch(userApiSlice.util.resetApiState());
-    navigate("/", { replace: true });
+    navigate("/");
   } catch (err) {
     console.error("Logout failed", err);
   }
