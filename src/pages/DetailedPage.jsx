@@ -297,6 +297,7 @@ return (
                   <p className="text-sm text-base-content/60">{b.author}</p>
                   <a
                     href={b.link}
+                    target="_blank"
                     className="link link-primary break-all text-sm"
                   >
                     {b.link}
@@ -322,6 +323,7 @@ return (
                   <p className="text-sm text-base-content/60">{y.channel}</p>
                   <a
                     href={y.link}
+                    target="_blank"
                     className="link link-primary break-all text-sm"
                   >
                     {y.link}
@@ -347,6 +349,7 @@ return (
                   <p className="text-sm text-base-content/60">{p.host}</p>
                   <a
                     href={p.link}
+                    target="_blank"
                     className="link link-primary break-all text-sm"
                   >
                     {p.link}
@@ -372,6 +375,7 @@ return (
                   <p className="text-sm text-base-content/60">{a.site}</p>
                   <a
                     href={a.link}
+                    target="_blank"
                     className="link link-primary break-all text-sm"
                   >
                     {a.link}

@@ -18,7 +18,7 @@ const LikeButton = ({ contentId, size = "lg" }) => {
 
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
-  console.log("LikeButton data:", data);
+  // console.log("LikeButton data:", data);
   // Sync state after both user + likes are loaded
   useEffect(() => {
     if (data) {
@@ -30,7 +30,7 @@ const LikeButton = ({ contentId, size = "lg" }) => {
   const sizes = { sm: "text-2xl", md: "text-3xl", lg: "text-4xl" };
 
   const handleLike = async () => {
-      console.log("Like data:", data);
+      // console.log("Like data:", data);
     if (!user) {
       toast.error("Please login to like this content.");
       return;

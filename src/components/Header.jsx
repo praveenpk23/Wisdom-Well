@@ -606,7 +606,7 @@ export default function Header() {
   const { data } = useGetUserProfileQuery();
   const [logout] = useLogoutMutation();
   const [selectedEmotion, setSelectedEmotion] = useState(null);
-  const themeOnLocal = localStorage.getItem("theme") ;
+  const themeOnLocal = localStorage.getItem("theme");
   const [theme, setTheme] = useState(themeOnLocal);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -616,23 +616,21 @@ export default function Header() {
     localStorage.setItem("theme", newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
   };
-  useEffect(()=>{
+  useEffect(() => {
     const themeOnLocal = localStorage.getItem("theme") || "dark";
     setTheme(themeOnLocal);
     document.documentElement.setAttribute("data-theme", themeOnLocal);
-  })
-  
+  });
 
-const logoutHandler = async () => {
-  try {
-    await logout().unwrap();   // backend clears cookie
-    dispatch(userApiSlice.util.resetApiState());
-    navigate("/");
-  } catch (err) {
-    console.error("Logout failed", err);
-  }
-};
-
+  const logoutHandler = async () => {
+    try {
+      await logout().unwrap(); // backend clears cookie
+      dispatch(userApiSlice.util.resetApiState());
+      navigate("/");
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
+  };
 
   // Professional dropdown
   const Dropdown = ({ label, items, onClick }) => (
@@ -777,7 +775,7 @@ const logoutHandler = async () => {
           <button
             className="w-full text-left py-2 text-base font-medium hover:text-primary"
             onClick={() => {
-              navigate("/categories/Philosophy");
+              navigate("/category/Philosophy");
               setMobileMenuOpen(false);
             }}
           >
